@@ -1,6 +1,8 @@
 # vitagram
+clone instagram Flutter project.
 
-A new Flutter project.
+![Screenshot_20230329_220110](https://user-images.githubusercontent.com/75659806/228544663-d3a4ff96-8dbd-472d-aa25-a4aa2ff54324.jpg)
+
 
 ## Getting Started
 
