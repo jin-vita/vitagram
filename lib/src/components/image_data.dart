@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ImageData extends StatelessWidget {
-  String icon;
+  final String icon;
   final double width;
 
-  ImageData(
+  const ImageData(
     this.icon, {
     Key? key,
-    this.width = 60,
+    this.width = 75,
   }) : super(key: key);
 
   @override

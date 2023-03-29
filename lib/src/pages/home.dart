@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vitagram/src/components/avatar_widget.dart';
 import 'package:vitagram/src/components/image_data.dart';
+import 'package:vitagram/src/components/post_widget.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -8,10 +9,10 @@ class Home extends StatelessWidget {
   Widget _myStory() {
     return Stack(
       children: [
-        AvatarWidget(
-          type: AvatarType.TYPE2,
+        const AvatarWidget(
+          type: AvatarType.type2,
           thumbPath: 'https://openimage.interpark.com/goods_image_big/1/7/0/1/8616591701e_l.jpg',
-          size: 75,
+          size: 72,
         ),
         Positioned(
           right: 5,
@@ -51,12 +52,18 @@ class Home extends StatelessWidget {
         _myStory(),
         ...List.generate(
           100,
-          (index) => AvatarWidget(
-            type: AvatarType.TYPE1,
+          (index) => const AvatarWidget(
+            type: AvatarType.type1,
             thumbPath: 'https://i.pinimg.com/originals/37/66/bd/3766bd2da443c2cca359ae87cf98b4a2.png',
           ),
         ),
       ]),
+    );
+  }
+
+  Widget _postList() {
+    return Column(
+      children: List.generate(50, (index) => const PostWidget()),
     );
   }
 
@@ -67,16 +74,25 @@ class Home extends StatelessWidget {
         elevation: 0,
         title: ImageData(
           IconsPath.logo,
-          width: 270,
+          width: 300,
         ),
         actions: [
           GestureDetector(
             onTap: () {},
             child: Padding(
               padding: const EdgeInsets.all(15),
-              child: ImageData(
-                IconsPath.directMessage,
-                width: 50,
+              child: Row(
+                children: [
+                  ImageData(
+                    IconsPath.likeOffIcon,
+                    width: 70,
+                  ),
+                  const SizedBox(width: 15),
+                  ImageData(
+                    IconsPath.directMessage,
+                    width: 70,
+                  ),
+                ],
               ),
             ),
           ),
@@ -85,7 +101,7 @@ class Home extends StatelessWidget {
       body: ListView(
         children: [
           _storyBoardList(),
-          // _postList(),
+          _postList(),
         ],
       ),
     );

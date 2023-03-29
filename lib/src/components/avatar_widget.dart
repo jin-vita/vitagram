@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-enum AvatarType { TYPE1, TYPE2, TYPE3 }
+enum AvatarType { type1, type2, type3 }
 
 class AvatarWidget extends StatelessWidget {
-  AvatarType type;
-  String thumbPath;
-  bool? hasStory;
-  String? nickname;
-  double size;
+  final AvatarType type;
+  final String thumbPath;
+  final bool? hasStory;
+  final String? nickname;
+  final double size;
 
-  AvatarWidget({
+  const AvatarWidget({
     Key? key,
     required this.type,
     required this.thumbPath,
@@ -19,7 +19,7 @@ class AvatarWidget extends StatelessWidget {
     this.size = 65,
   }) : super(key: key);
 
-  Widget type1Widget() {
+  type1Widget() {
     return Container(
       padding: const EdgeInsets.all(3),
       decoration: const BoxDecoration(
@@ -37,7 +37,7 @@ class AvatarWidget extends StatelessWidget {
     );
   }
 
-  Widget type2Widget() {
+  type2Widget() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 5),
       padding: const EdgeInsets.all(2),
@@ -59,16 +59,30 @@ class AvatarWidget extends StatelessWidget {
     );
   }
 
+  type3Widget() {
+    return Row(
+      children: [
+        type2Widget(),
+        Text(
+          nickname ?? '',
+          style: const TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     switch (type) {
-      case AvatarType.TYPE1:
+      case AvatarType.type1:
         return type1Widget();
-      case AvatarType.TYPE2:
+      case AvatarType.type2:
         return type2Widget();
-      case AvatarType.TYPE3:
-        break;
+      case AvatarType.type3:
+        return type3Widget();
     }
-    return Container();
   }
 }

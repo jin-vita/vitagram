@@ -6,7 +6,7 @@ import 'package:vitagram/main.dart';
 import 'package:vitagram/src/components/message_popup.dart';
 import 'package:vitagram/src/pages/upload.dart';
 
-enum PageName { HOME, SEARCH, UPLOAD, ACTIVITY, MYPAGE }
+enum PageName { home, search, upload, activity, myPage }
 
 class BottomNavController extends GetxController {
   RxInt pageIndex = 0.obs;
@@ -15,13 +15,13 @@ class BottomNavController extends GetxController {
   void changeBottomNav(int value, {bool hasGesture = true}) {
     PageName page = PageName.values[value];
     switch (page) {
-      case PageName.UPLOAD:
+      case PageName.upload:
         Get.to(() => const Upload());
         break;
-      case PageName.HOME:
-      case PageName.SEARCH:
-      case PageName.ACTIVITY:
-      case PageName.MYPAGE:
+      case PageName.home:
+      case PageName.search:
+      case PageName.activity:
+      case PageName.myPage:
         _changePage(value, hasGesture: hasGesture);
         break;
     }
@@ -31,12 +31,12 @@ class BottomNavController extends GetxController {
     pageIndex(value);
     if (!hasGesture) return;
     if (bottomHistory.length == 3) bottomHistory.removeAt(0);
-    if (bottomHistory.last != value) bottomHistory.add(value);
+    if (bottomHistory.isEmpty || bottomHistory.last != value) bottomHistory.add(value);
     logger.d(bottomHistory);
   }
 
   Future<bool> willPopAction() async {
-    if (bottomHistory.length == 1) {
+    if (bottomHistory.isEmpty) {
       showDialog(
         context: Get.context!,
         builder: (context) => MessagePopup(
@@ -52,7 +52,7 @@ class BottomNavController extends GetxController {
     } else {
       bottomHistory.removeLast();
       logger.d(bottomHistory);
-      changeBottomNav(bottomHistory.last, hasGesture: false);
+      changeBottomNav(bottomHistory.isEmpty ? 0 : bottomHistory.last, hasGesture: false);
       return false;
     }
   }
