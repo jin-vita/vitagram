@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:vitagram/src/components/avatar_widget.dart';
 import 'package:vitagram/src/components/image_data.dart';
@@ -6,12 +8,75 @@ import 'package:vitagram/src/components/post_widget.dart';
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
-  Widget _myStory() {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _appBar(),
+      body: ListView(
+        children: [
+          const SizedBox(height: 10),
+          _storyBoardList(),
+          _postList(),
+        ],
+      ),
+    );
+  }
+
+  AppBar _appBar() {
+    return AppBar(
+      elevation: 0,
+      title: ImageData(
+        IconsPath.logo,
+        width: 300,
+      ),
+      actions: [
+        GestureDetector(
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Row(
+              children: [
+                ImageData(
+                  IconsPath.likeOffIcon,
+                  width: 70,
+                ),
+                const SizedBox(width: 15),
+                ImageData(
+                  IconsPath.directMessage,
+                  width: 70,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  _storyBoardList() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(children: [
+        const SizedBox(width: 5),
+        _myStory(),
+        ...List.generate(
+          100,
+              (index) =>
+              AvatarWidget(
+                type: AvatarType.type1,
+                thumbPath: dummyUrl[Random().nextInt(dummyUrl.length)],
+              ),
+        ),
+      ]),
+    );
+  }
+
+  _myStory() {
     return Stack(
       children: [
-        const AvatarWidget(
+        AvatarWidget(
           type: AvatarType.type2,
-          thumbPath: 'https://openimage.interpark.com/goods_image_big/1/7/0/1/8616591701e_l.jpg',
+          thumbPath: dummyUrl.first,
           size: 72,
         ),
         Positioned(
@@ -44,66 +109,9 @@ class Home extends StatelessWidget {
     );
   }
 
-  Widget _storyBoardList() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(children: [
-        const SizedBox(width: 5),
-        _myStory(),
-        ...List.generate(
-          100,
-          (index) => const AvatarWidget(
-            type: AvatarType.type1,
-            thumbPath: 'https://i.pinimg.com/originals/37/66/bd/3766bd2da443c2cca359ae87cf98b4a2.png',
-          ),
-        ),
-      ]),
-    );
-  }
-
-  Widget _postList() {
+  _postList() {
     return Column(
       children: List.generate(50, (index) => const PostWidget()),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: ImageData(
-          IconsPath.logo,
-          width: 300,
-        ),
-        actions: [
-          GestureDetector(
-            onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Row(
-                children: [
-                  ImageData(
-                    IconsPath.likeOffIcon,
-                    width: 70,
-                  ),
-                  const SizedBox(width: 15),
-                  ImageData(
-                    IconsPath.directMessage,
-                    width: 70,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: ListView(
-        children: [
-          _storyBoardList(),
-          _postList(),
-        ],
-      ),
     );
   }
 }

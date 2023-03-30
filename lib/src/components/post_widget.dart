@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vitagram/main.dart';
 import 'package:vitagram/src/components/avatar_widget.dart';
 import 'package:vitagram/src/components/image_data.dart';
@@ -14,14 +17,16 @@ class PostWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const AvatarWidget(
+          AvatarWidget(
             type: AvatarType.type3,
             nickname: '팡구',
             size: 35,
-            thumbPath: 'https://openimage.interpark.com/goods_image_big/1/7/0/1/8616591701e_l.jpg',
+            thumbPath: dummyUrl.first,
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              logger.d('pressed postMoreIcon');
+            },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ImageData(
@@ -36,8 +41,18 @@ class PostWidget extends StatelessWidget {
   }
 
   _image() {
-    return CachedNetworkImage(
-        imageUrl: 'http://img3.tmon.kr/cdn4/deals/2023/01/12/8864999774/front_0ad13_7r1cp.jpg');
+    return SizedBox(
+      width: Get.width,
+      height: Get.width,
+      //   child: Image.asset(
+      //     Dummy.post1,
+      //     fit: BoxFit.cover,
+      //   ),
+      child: CachedNetworkImage(
+        imageUrl: dummyUrl[Random().nextInt(dummyUrl.length)],
+        fit: BoxFit.cover,
+      ),
+    );
   }
 
   _infoCount() {
@@ -80,14 +95,12 @@ class PostWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SizedBox(height: 5),
-          const Text(
-            '좋아요 150개',
-            style: TextStyle(fontWeight: FontWeight.bold),
+          Text(
+            '좋아요 ${Random().nextInt(800) + 1}개',
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 5),
           ExpandableText(
-            '팡아니고 알린입니다\n요요\n킥킥\n바보\n냠냠냠 부부부',
+            '팡아니고 알린입니다\n요요요\n킥킥킥킥\n너바보\n냠냠냠후룩후룩\n부부부',
             prefixText: '팡구',
             onPrefixTap: () {
               logger.d('팡구 페이지로 이동');
@@ -100,7 +113,6 @@ class PostWidget extends StatelessWidget {
             collapseOnTextTap: true,
             linkColor: Colors.grey,
           ),
-          const SizedBox(height: 5),
         ],
       ),
     );
@@ -109,11 +121,11 @@ class PostWidget extends StatelessWidget {
   _replyButton() {
     return GestureDetector(
       onTap: () {},
-      child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Text(
-          '댓글 127개 모두 보기',
-          style: TextStyle(
+          '댓글 ${Random().nextInt(98) + 1}개 모두 보기',
+          style: const TextStyle(
             color: Colors.grey,
             fontSize: 13,
           ),
@@ -143,13 +155,17 @@ class PostWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _header(),
+          const SizedBox(height: 10),
           _image(),
+          const SizedBox(height: 10),
           _infoCount(),
           const SizedBox(height: 5),
           _description(),
+          const SizedBox(height: 5),
           _replyButton(),
           const SizedBox(height: 5),
           _dateAgo(),
+          const SizedBox(height: 5),
         ],
       ),
     );
