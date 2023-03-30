@@ -42,6 +42,7 @@ dependencies:
   scroll_app_bar: ^2.0.0
   quiver: ^3.2.1
   fluttertoast: ^8.2.1
+  photo_manager: ^2.6.0
 
 dev_dependencies:
   flutter_test:
