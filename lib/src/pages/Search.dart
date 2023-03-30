@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:quiver/iterables.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 import 'package:vitagram/src/components/image_data.dart';
+import 'package:vitagram/src/pages/search/search_focus.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -48,34 +49,36 @@ class _SearchState extends State<Search> {
     return ScrollAppBar(
       elevation: 0,
       controller: appBarController,
-      title: Row(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 8,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: const Color(0xffefefef),
-              ),
-              child: Row(
-                children: const [
-                  SizedBox(width: 15),
-                  Icon(
-                    Icons.search,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    '검색',
-                    style: TextStyle(fontSize: 16, color: Color(0xff838383)),
-                  ),
-                ],
-              ),
-            ),
+      title: GestureDetector(
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (con) => const SearchFocus(),
           ),
-        ],
+        ),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            vertical: 8,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: const Color(0xffefefef),
+          ),
+          child: Row(
+            children: const [
+              SizedBox(width: 15),
+              Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
+              SizedBox(width: 10),
+              Text(
+                '검색',
+                style: TextStyle(fontSize: 16, color: Color(0xff838383)),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -23,7 +23,7 @@ class MessagePopup extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(20),
             child: Container(
               color: Colors.white,
               width: Get.width * 0.6,

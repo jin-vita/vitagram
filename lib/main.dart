@@ -7,6 +7,7 @@ import 'package:vitagram/src/binding/init_bindings.dart';
 // flutter pub add get
 // flutter pub add logger
 // flutter pub add quiver
+// flutter pub add fluttertoast
 // flutter pub add scroll_app_bar
 // flutter pub add expandable_text
 // flutter pub add cached_network_image
