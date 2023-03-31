@@ -2,60 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_manager/photo_manager.dart';
-import 'package:vitagram/main.dart';
 import 'package:vitagram/src/components/image_data.dart';
 
-class Upload extends StatefulWidget {
+class Upload extends StatelessWidget {
   const Upload({Key? key}) : super(key: key);
-
-  @override
-  State<Upload> createState() => _UploadState();
-}
-
-class _UploadState extends State<Upload> {
-  late final List<AssetPathEntity> albums;
-  String headerTitle = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _loadPhotos();
-  }
-
-  _loadPhotos() async {
-    final result = await PhotoManager.requestPermissionExtend();
-    if (result.isAuth) {
-      albums = await PhotoManager.getAssetPathList(
-        type: RequestType.image,
-        filterOption: FilterOptionGroup(
-          imageOption: const FilterOption(
-            sizeConstraint: SizeConstraint(
-              minHeight: 100,
-              minWidth: 100,
-            ),
-          ),
-          orders: [
-            const OrderOption(
-              type: OrderOptionType.createDate,
-              asc: false,
-            ),
-          ],
-        ),
-      );
-      _loadData();
-    } else {
-      // message 권한 요청
-    }
-  }
-
-  _loadData() {
-    logger.d(albums.first.name);
-    headerTitle = albums.first.name;
-    update();
-  }
-
-  void update() => setState(() {});
 
   @override
   Widget build(BuildContext context) {
@@ -132,15 +82,15 @@ class _UploadState extends State<Upload> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              children: [
+              children: const [
                 Text(
-                  headerTitle,
-                  style: const TextStyle(
+                  '갤러리',
+                  style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
                   ),
                 ),
-                const Icon(Icons.arrow_drop_down),
+                Icon(Icons.arrow_drop_down),
               ],
             ),
           ),
